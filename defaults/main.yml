@@ -1,2 +1,5 @@
 ---
-# defaults file for python
+python_base_name: 'python'
+python_wsgi_embedded: false
+python_wsgi_ignore_deprecation: true
+python_wsgi_optimize: 0
