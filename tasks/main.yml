@@ -1,6 +1,6 @@
 ---
 - name: install python dev
-  yum: pkg={{ item }} state=present
+  yum: name={{ item }} state=present
   with_items:
      - "{{ python_base_name }}-devel"
      - "{{ python_base_name }}-setuptools"
@@ -10,21 +10,21 @@
     - packages
 
 - name: install pillow
-  yum: pkg={{ python_base_name }}-pillow state=present
+  yum: name={{ python_base_name }}-pillow state=present
   when: ansible_distribution_major_version|int > 6
   tags:
     - python
     - packages
 
 - name: install PIL
-  yum: pkg={{ python_base_name }}-imaging state=present
+  yum: name={{ python_base_name }}-imaging state=present
   when: ansible_distribution_major_version|int == 6
   tags:
     - python
     - packages
 
 - name: install virtual env
-  yum: pkg={{ item }} state=present
+  yum: name={{ item }} state=present
   with_items:
      - "{{ python_base_name }}-virtualenv"
      - "{{ python_base_name }}-virtualenv-clone"
@@ -34,7 +34,7 @@
     - packages
 
 - name: install python drivers
-  yum: pkg={{ item }} state=present
+  yum: name={{ item }} state=present
   with_items:
      - MySQL-python
      - python-memcached
@@ -44,7 +44,7 @@
     - packages
 
 - name: install mod_wsgi
-  yum: pkg=mod_wsgi state=present
+  yum: name=mod_wsgi state=present
   when: python_base_name == 'python'
   tags:
     - python
