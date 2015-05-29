@@ -14,6 +14,9 @@ Role Variables
 | python_wsgi_ignore_deprecation	| true				|						|
 | python_wsgi_optimize			| 0				|						|
 
+| Other Variables                       | Default                       | Notes                                         |
+| :---                                  | :---                          | :---                                          |
+| common_development_tools		| false				| Does your requirements.txt need a C compiler? |
 
 Example Playbook
 ----------------
