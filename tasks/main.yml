@@ -59,8 +59,24 @@
     - python
     - packages
 
+- name: create virtual env root
+  file: path="{{ python_virtualenv_root }}" state=directory owner="{{ python_virtualenv_owner }}" mode=0775
+  with_dict: python_virtualenvs
+  when: python_virtualenvs|length > 0
+  tags:
+    - python
+    - packages
+
+- name: create virtual env roots
+  file: path="{{ python_virtualenv_root }}/{{ item.key }}" state=directory owner="{{ item.value.owner|default(python_virtualenv_owner) }}" mode=0775
+  with_dict: python_virtualenvs
+  when: python_virtualenvs|length > 0
+  tags:
+    - python
+    - packages
+
 - name: install virtual env packages
-  pip: virtualenv="/{{ python_virtualenv_root }}/{{ item.key }}" requirements={{ item.value.requirements }} virtualenv_site_packages={{ item.value.site_packages|default(omit) }}
+  pip: virtualenv="{{ python_virtualenv_root }}/{{ item.key }}" requirements={{ item.value.requirements }} virtualenv_site_packages={{ item.value.site_packages|default(omit) }}
   become: yes
   become_user: "{{ item.value.owner|default(python_virtualenv_owner) }}"
   with_dict: python_virtualenvs
