@@ -51,6 +51,14 @@
     - python
     - packages
 
+- name: install system pip packages
+  pip: name={{ item }} executable={{ python_pip_executable }} state=present
+  with_items: python_pip_packages
+  when: python_pip_packages|length > 0
+  tags:
+    - python
+    - packages
+
 - name: install mod_wsgi
   yum: name=mod_wsgi state=present
   when: python_base_name == 'python'
