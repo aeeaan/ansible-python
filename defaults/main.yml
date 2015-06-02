@@ -6,3 +6,6 @@ python_wsgi_optimize: 0
 
 python_pip_executable: pip
 python_pip_packages: []
+python_virtualenvs: {}
+python_virtualenv_root: /opt/virtualenvs
+python_virtualenv_owner: root
