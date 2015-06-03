@@ -28,7 +28,7 @@ In general, this should be the name of an apache vhost as this will automaticall
       localhost.localdomain:
         requirements: /tmp/requirements.txt  (required)
         owner: vagrant			     (optional, defaults to python_virtualenv_owner)
-        site_packages: yes		     (optional, defaults to pip default of no)
+        site_packages: yes		     (optional, defaults to virtualenv default of no)
       localhost2.localdomain:
         requirements: /tmp/requirements.txt
 
