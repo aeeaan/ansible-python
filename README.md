@@ -10,9 +10,6 @@ Role Variables
 | Variable                              | Default                       | Notes                                         |
 | :---                                  | :---                          | :---                                          |
 | python_base_name			| 'python'			| 						|
-| python_wsgi_embedded			| false				|						|
-| python_wsgi_ignore_deprecation	| true				|						|
-| python_wsgi_optimize			| 0				|						|
 | python_pip_executable			| pip				|						|
 | python_pip_packages			| []				| 						|
 | python_virtualenvs			| {}				|						|

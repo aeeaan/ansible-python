@@ -84,18 +84,3 @@
   tags:
     - python
     - packages
-
-- name: install mod_wsgi
-  yum: name=mod_wsgi state=present
-  when: python_base_name == 'python'
-  tags:
-    - python
-    - packages
-
-- name: configure main mod_wsgi settings
-  template: src=wsgi.conf.j2  dest=/etc/httpd/conf.d/wsgi.conf mode=0644 owner=root group=root
-  when: python_base_name == 'python'
-  notify: restart httpd
-  tags:
-    - python
-    - configuration
