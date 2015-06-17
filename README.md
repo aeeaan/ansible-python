@@ -12,21 +12,18 @@ Role Variables
 | python_base_name			| 'python'			| 						|
 | python_pip_executable			| pip				|						|
 | python_pip_packages			| []				| 						|
-| python_virtualenvs			| {}				|						|
+| python_virtualenvs			| []				|						|
 | python_virtualenv_root		| /opt/virtualenvs		|						|
 | python_virtualenv_owner		| root				|						|
 
 #### Complex variables
 
-python_virtualenvs is a dictionary used to configure multiple virtualenvs. python_virtualenvs.key is the name of the virtualenv.
-In general, this should be the name of an apache vhost as this will automatically configure some things for you when using correcthorse.httpd
-
     python_virtualenvs:
-      localhost.localdomain:
+      - name: localhost.localdomain          (required)
         requirements: /tmp/requirements.txt  (required)
         owner: vagrant			     (optional, defaults to python_virtualenv_owner)
         site_packages: yes		     (optional, defaults to virtualenv default of no)
-      localhost2.localdomain:
+      - name: localhost2.localdomain
         requirements: /tmp/requirements.txt
 
 | Other Variables                       | Default                       | Notes                                         |
