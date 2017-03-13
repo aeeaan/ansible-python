@@ -4,7 +4,7 @@ galaxy_info:
   description:
   company:
   license: MIT
-  min_ansible_version: 1.9.4
+  min_ansible_version: 2.2.1
   platforms:
   - name: EL
     versions:
@@ -15,4 +15,4 @@ galaxy_info:
   - system
   - web
 dependencies:
-  - { role: correcthorse.common }
+  - correcthorse.common
