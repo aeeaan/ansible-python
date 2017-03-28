@@ -15,6 +15,7 @@ Role Variables
 | python_virtualenvs			| []				|						|
 | python_virtualenv_root		| /opt/virtualenvs		|						|
 | python_virtualenv_owner		| root				|						|
+| python_extra_packages			| []				| meant for global python packages that are part of distro |
 
 #### Complex variables
 
