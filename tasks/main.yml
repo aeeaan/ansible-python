@@ -6,6 +6,11 @@
     - "{{ ansible_os_family }}.yml"
   tags: vars
 
+- name: define python basename
+  set_fact:
+    python_base_name: "{{ _python_base_name }}"
+  when: python_base_name is not defined
+
 - name: install python dev
   yum:
     name: ['{{ python_base_name }}-devel', '{{ python_base_name }}-setuptools', '{{ python_base_name }}-pip']
@@ -59,7 +64,7 @@
   pip:
     name: '{{ python_pip_packages }}'
     version: '{{ item.version|default(omit) }}'
-    executable: '{{ python_pip_executable }}'
+    executable: '{{ python_pip_executable|default(omit) }}'
     state: present
   when: python_pip_packages|length > 0
   tags:

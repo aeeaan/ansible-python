@@ -1,2 +1,3 @@
 ---
+_python_base_name: python
 _python_virtualenv_command: virtualenv

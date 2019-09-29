@@ -1,6 +1,4 @@
 ---
-python_base_name: 'python'
-python_pip_executable: pip
 python_pip_packages: []
 python_virtualenvs: []
 python_virtualenv_root: /opt/virtualenvs

@@ -9,8 +9,8 @@ Role Variables
 
 | Variable                              | Default                       | Notes                                         |
 | :---                                  | :---                          | :---                                          |
-| python_base_name			| 'python'			| 						|
-| python_pip_executable			| pip				|						|
+| python_base_name			| 'python' or 'python3'			| 'python3' is default on RHEL 8 |
+| python_pip_executable			|	version ansible chooses |					|
 | python_pip_packages			| []				| 						|
 | python_virtualenvs			| []				|						|
 | python_virtualenv_root		| /opt/virtualenvs		|						|
@@ -33,6 +33,9 @@ Role Variables
 
 Example Playbook
 ----------------
+
+NOTE: Since we use virtualenv parameter in pip module, you may need to set INTERPRETER_PYTHON so the correct pip is used.
+INCOMPLETE: using virtualenvs with non-default python_base_name's
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
