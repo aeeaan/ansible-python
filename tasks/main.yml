@@ -22,51 +22,60 @@
     - packages
 
 - name: install virtual env
-  yum: name={{ item }} state=present
-  with_items:
-     - "{{ python_base_name }}-virtualenv"
-     - "{{ python_base_name }}-virtualenv-clone"
-     - "{{ python_base_name }}-virtualenvwrapper"
+  yum:
+    name: ['{{ python_base_name }}-virtualenv', '{{ python_base_name }}-virtualenv-clone', '{{ python_base_name }}-virtualenvwrapper']
+    state: present
   when: ansible_distribution_major_version|int < 8
   tags:
     - python
     - packages
 
 - name: install python drivers
-  yum: name={{ item }} state=present
-  with_items:
-     - MySQL-python
-     - python-memcached
+  yum:
+    name: ['MySQL-python', 'python-memcached']
+    state: present
   when: python_base_name == 'python' and ansible_distribution_major_version|int < 8
   tags:
     - python
     - packages
 
 - name: install extra python packages
-  yum: name={{ item }} state=present
-  with_items: "{{ python_extra_packages }}"
+  yum:
+    name: '{{ python_extra_packages }}'
+    state: present
   when: python_extra_packages is defined
   tags:
     - python
     - packages
 
 - name: install system pip packages
-  pip: name={{ item.name }} version={{ item.version|default(omit) }} executable={{ python_pip_executable }} state=present
-  with_items: "{{ python_pip_packages }}"
+  pip:
+    name: '{{ python_pip_packages }}'
+    version: '{{ item.version|default(omit) }}'
+    executable: '{{ python_pip_executable }}'
+    state: present
   when: python_pip_packages|length > 0
   tags:
     - python
     - packages
 
 - name: create virtual env root
-  file: path="{{ python_virtualenv_root }}" state=directory owner="{{ python_virtualenv_owner }}" mode=0775
+  file:
+    path: "{{ python_virtualenv_root }}"
+    state: directory
+    owner: "{{ python_virtualenv_owner }}"
+    mode: 0775
   when: python_virtualenvs|length > 0
   tags:
     - python
     - packages
 
 - name: create virtual env roots
-  file: path="{{ python_virtualenv_root }}/{{ item.name }}" state=directory owner="{{ item.owner|default(python_virtualenv_owner) }}" mode=0775
+  file:
+    path: "{{ python_virtualenv_root }}/{{ item.name }}"
+    state: directory
+    owner: "{{ item.owner|default(python_virtualenv_owner) }}"
+    mode: 0775
   with_items: "{{ python_virtualenvs }}"
   when: python_virtualenvs|length > 0
   tags:
