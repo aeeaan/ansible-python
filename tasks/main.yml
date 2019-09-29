@@ -1,10 +1,8 @@
 ---
 - name: install python dev
-  yum: name={{ item }} state=present
-  with_items:
-     - "{{ python_base_name }}-devel"
-     - "{{ python_base_name }}-setuptools"
-     - "{{ python_base_name }}-pip"
+  yum:
+    name: ['{{ python_base_name }}-devel', '{{ python_base_name }}-setuptools', '{{ python_base_name }}-pip']
+    state: present
   tags:
     - python
     - packages
@@ -29,6 +27,7 @@
      - "{{ python_base_name }}-virtualenv"
      - "{{ python_base_name }}-virtualenv-clone"
      - "{{ python_base_name }}-virtualenvwrapper"
+  when: ansible_distribution_major_version|int < 8
   tags:
     - python
     - packages
@@ -38,7 +37,7 @@
   with_items:
      - MySQL-python
      - python-memcached
-  when: python_base_name == 'python'
+  when: python_base_name == 'python' and ansible_distribution_major_version|int < 8
   tags:
     - python
     - packages
@@ -75,7 +74,11 @@
     - packages
 
 - name: install virtual env packages
-  pip: virtualenv="{{ python_virtualenv_root }}/{{ item.name }}" requirements={{ item.requirements }} virtualenv_site_packages={{ item.site_packages|default(omit) }}
+  pip:
+    virtualenv: "{{ python_virtualenv_root }}/{{ item.name }}"
+    requirements: "{{ item.requirements }}"
+    virtualenv_site_packages: "{{ item.site_packages|default(omit) }}"
+    virtualenv_command: "{{ _python_virtualenv_command }}"
   become: yes
   become_user: "{{ item.owner|default(python_virtualenv_owner) }}"
   with_items: "{{ python_virtualenvs }}"
