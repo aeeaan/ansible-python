@@ -10,6 +10,7 @@ Role Variables
 | Variable                              | Default                       | Notes                                         |
 | :---                                  | :---                          | :---                                          |
 | python_base_name			| 'python' or 'python3'			| 'python3' is default on RHEL 8 |
+| python_install_python2  | false                   | install RHEL 8 python 2 stream  |
 | python_pip_executable			|	version ansible chooses |					|
 | python_pip_packages			| []				| 						|
 | python_virtualenvs			| []				|						|

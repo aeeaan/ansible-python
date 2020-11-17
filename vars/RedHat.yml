@@ -1,3 +1,5 @@
 ---
 _python_base_name: python3
 _python_virtualenv_command: '/usr/bin/python3 -m venv'
+_python2_base_name: python2
+_python2_virtualenv_command: '/usr/bin/virtualenv-2'

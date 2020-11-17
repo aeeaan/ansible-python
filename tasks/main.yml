@@ -11,6 +11,16 @@
     python_base_name: "{{ _python_base_name }}"
   when: python_base_name is not defined
 
+- name: define python 2 basename
+  set_fact:
+    python2_base_name: "{{ _python2_base_name }}"
+  when: python2_base_name is not defined
+
+- name: define virtualenv command
+  set_fact:
+    python_virtualenv_command: "{{ _python_virtualenv_command }}"
+  when: python_virtualenv_command is not defined
+
 - name: install python dev
   yum:
     name: ['{{ python_base_name }}-devel', '{{ python_base_name }}-setuptools', '{{ python_base_name }}-pip']
@@ -19,11 +29,20 @@
     - python
     - packages
 
-- name: install virtual env
+- name: install python 2
   yum:
-    name: "{{ python_base_name }}-virtualenv"
+    name: "{{ python2_base_name }}"
     state: present
-  when: ansible_distribution_major_version|int < 8
+  when: python_install_python2
+  tags:
+    - python
+    - packages
+
+- name: install python 2 dev
+  yum:
+    name: ['{{ python2_base_name }}-devel', '{{ python2_base_name }}-setuptools', '{{ python2_base_name }}-pip', '{{ python2_base_name }}-virtualenv']
+    state: present
+  when: python_install_python2
   tags:
     - python
     - packages
@@ -76,7 +95,7 @@
     virtualenv: "{{ python_virtualenv_root }}/{{ item.name }}"
     requirements: "{{ item.requirements }}"
     virtualenv_site_packages: "{{ item.site_packages|default(omit) }}"
-    virtualenv_command: "{{ _python_virtualenv_command }}"
+    virtualenv_command: "{{ item.python_virtualenv_command|default(python_virtualenv_command) }}"
   become: yes
   become_user: "{{ item.owner|default(python_virtualenv_owner) }}"
   with_items: "{{ python_virtualenvs }}"
