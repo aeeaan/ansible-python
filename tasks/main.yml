@@ -96,6 +96,7 @@
     requirements: "{{ item.requirements }}"
     virtualenv_site_packages: "{{ item.site_packages|default(omit) }}"
     virtualenv_command: "{{ item.python_virtualenv_command|default(python_virtualenv_command) }}"
+    virtualenv_python: "{{ item.virtualenv_python|default(omit) }}"
   become: yes
   become_user: "{{ item.owner|default(python_virtualenv_owner) }}"
   with_items: "{{ python_virtualenvs }}"
